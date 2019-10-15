@@ -1,0 +1,75 @@
+.ticketsScreen{
+    display: flex;
+    padding: 20px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.preload{
+    padding-left: 28%;
+}
+/* form styles */
+form {
+    width: 90%;
+   }
+   .form-group {
+       margin-bottom: 1rem;
+   }
+   .form-control {
+       display: block;
+       width: 100%;
+       padding: .375rem .75rem;
+       font-size: 1rem;
+       line-height: 1.5;
+       color: #495057;
+       background-color: #fff;
+       background-image: none;
+       background-clip: padding-box;
+       border: 1px solid #ced4da;
+       border-radius: .25rem;
+       transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+   }
+   
+   label {
+       display: inline-block;
+       margin-bottom: .5rem;
+   }
+   
+   [role=button], a, area, button, input:not([type=range]), label, select, summary, textarea {
+       -ms-touch-action: manipulation;
+       touch-action: manipulation;
+   }
+   .text-danger {
+       color: #dc3545!important;
+   }
+   
+   primary:disabled {
+       background-color: #007bff;
+       border-color: #007bff;
+   }
+   
+   .btn.disabled, .btn:disabled {
+       opacity: .65;
+   }
+   .btn-primary {
+       color: #fff;
+       background-color: #007bff;
+       border-color: #007bff;
+   }
+   .btn {
+       display: inline-block;
+       font-weight: 400;
+       text-align: center;
+       white-space: nowrap;
+       vertical-align: middle;
+       -webkit-user-select: none;
+       -moz-user-select: none;
+       -ms-user-select: none;
+       user-select: none;
+       border: 1px solid transparent;
+       padding: .375rem .75rem;
+       font-size: 1rem;
+       line-height: 1.5;
+       border-radius: .25rem;
+       transition: background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+   }
