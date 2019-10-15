@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateStopsAC, showModalAC, showSuccessAC, currentCurrency, currencyUSD, currencyEUR } from '../store/actions';
+import { updateStopsAC, showModalAC, showSuccessAC, currentCurrency } from '../store/actions';
 import TicketsView from '../components/Tickets/TicketsView';
 import SideBar from '../components/SideBar/SideBar';
 import preload from '../images/tenor.gif';

@@ -39,9 +39,9 @@ const ticketsreducer = (state = initialState, action = {}) => {
 export default ticketsreducer;
 
 const filterTicketsByCurrency = (tickets, currency) => {
-  if (currency == 'eur'){
+  if (currency === 'eur'){
   return tickets.map((ticket) => ({...ticket, price: Math.round(ticket.price / 14) + ' ' + currency}))}
-  else if (currency == 'usd'){
+  else if (currency === 'usd'){
   return tickets.map((ticket) => ({...ticket, price: Math.round(ticket.price / 15) + ' ' + currency}))}
   return tickets.map((ticket) => ({...ticket, price: ticket.price + ' ' + currency}))
 }
