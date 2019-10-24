@@ -1,38 +1,20 @@
 import React from 'react';
 import TicketItem from './TicketItem';
-import './Tickets.css'
 import Form from '../Form/Form';
 import Success from '../Form/Success';
 
+import './Tickets.css';
+
 const TicketsView = (props) => {
+  const ticketsList = props.tickets.map((elem) => <TicketItem key={elem.id} ticket={elem} onOpenModal={props.onOpenModal} />);
 
-let ticketsList = props.tickets.map((elem) => 
-                  <TicketItem 
-                  key={elem.id} 
-                  ticket={elem} 
-                  openModal={props.openModal}
-                  onOpenModal={props.onOpenModal}/>);
-
-let form;
-
-  if (props.openModal && props.successModal !== true) {
-    form = <div className='showModal'>
-      <Form
-        openModal={props.openModal}
-        onCloseModal={props.onCloseModal} 
-        onShowSuccess={props.onShowSuccess}
-        dataForm={props.dataForm}
-        />
-    </div>
-  } else if (props.successModal) {
-    form = <div className='showModal'>
-      <Success
-        openModal={props.openModal}
-        onShowSuccess={props.onShowSuccess} />
-    </div>
-  } else {
-    form = <div className='hideModal'></div>
+  const modalComponents = {
+    form: <><div className='showModal'><Form onOpenModal={props.onOpenModal} onShowSuccess={props.onShowSuccess} onSubmit={props.onSubmit}/></div><div className='overlay'></div></>,
+    success: <div className='showModal'><Success onShowSuccess={props.onShowSuccess} /></div>,
+    empty: <div className='hideModal'></div>
   }
+
+  let form = props.openModal ? modalComponents.form : props.successModal ? modalComponents.success : modalComponents.empty
 
   return (
     <div>

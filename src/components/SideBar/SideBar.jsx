@@ -5,18 +5,17 @@ import './SideBar.css'
 
 const SideBar = (props) => {
 
-return(
-    <div className='sideBar-container'>
+    return (
+        <div className='sideBar-container'>
 
-        <h5>ВАЛЮТА</h5>
-            <CurrencyBtns 
-            setCurrency={props.setCurrency}/>
-        <h5>КОЛИЧЕСТВО ПЕРЕСАДОК</h5>
-            <SelectStops 
-            onStopsChanged = {props.onStopsChanged}
-            />
-
-    </div> 
+            <h5>ВАЛЮТА</h5>
+            <CurrencyBtns
+                currency={props.currency} 
+                setCurrency={props.setCurrency} />
+            <h5>КОЛИЧЕСТВО ПЕРЕСАДОК</h5>
+            <SelectStops
+                {...props}/>
+        </div>
     )
 }
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateStopsAC, showModalAC, showSuccessAC, currentCurrency } from '../store/actions';
+import { updateStops, showOnlyOneStop, onAllStops, showModal, showSuccess, onSubmitForm} from '../store/actions';
+import {getFilterTicketsByCurrency} from '../store/filters';
 import TicketsView from '../components/Tickets/TicketsView';
 import SideBar from '../components/SideBar/SideBar';
 import preload from '../images/tenor.gif';
@@ -9,39 +10,75 @@ import './Container.css'
 
 class TicketsContainer extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      tickets: []
+    };
+  }
+
+  getTickets = () =>{
+    this.setState({
+      tickets: this.props.tickets
+    })
+  }
+
+  componentDidMount(){
+    this.getTickets()
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.tickets !== prevProps.tickets) {
+      this.getTickets();
+    }
+  }
+
   onStopsChanged = (stops) => {
     this.props.updateStops(stops);
   }
 
+  onShowOnlyOneStop = (value) => {
+    this.props.showOnlyOneStop(value);
+  }
+
+  onShowAllStops = (checked) => {
+    this.props.onAllStops(checked);
+  }
+
   setCurrency = (currency) => {
-    this.props.setCurrentCurrency(currency)
+    let newTickets = getFilterTicketsByCurrency (this.props.tickets, currency);
+    this.setState({
+      tickets: newTickets
+    })
   }
 
-  onOpenModal = (openModal) => {
-    this.props.showModal(openModal)
-  }
-
-  onCloseModal = (openModal) => {
-    this.props.showModal(openModal);
+  onOpenModal = () => {
+    this.props.showModal()
   }
 
   onShowSuccess = () => {
     this.props.showSuccess();
   }
 
+  onSubmit = (data) => {
+    this.props.onSubmitForm(data);
+  }
+
   render() {
     return (!this.props.tickets ? this.renderLoading() :
       <div className="ticketsScreen">
-        <SideBar
-          onStopsChanged={this.onStopsChanged}
-          setCurrency={this.setCurrency}/>
-        <TicketsView
-          tickets={this.props.tickets}
-          successModal={this.props.successModal}
-          openModal={this.props.openModal}
-          onShowSuccess={this.onShowSuccess}
-          onOpenModal={this.onOpenModal}
-          onCloseModal={this.onCloseModal}/>
+        <SideBar onStopsChanged={this.onStopsChanged} 
+                 onShowAllStops={this.onShowAllStops}
+                 onShowOnlyOneStop={this.onShowOnlyOneStop}
+                 setCurrency={this.setCurrency}
+                 currency ={this.props.currency}
+                 stops={this.props.stops} />
+        <TicketsView tickets={this.state.tickets}
+                    openModal={this.props.openModal}
+                    successModal={this.props.successModal}
+                    onShowSuccess={this.onShowSuccess}
+                    onOpenModal={this.onOpenModal}
+                    onSubmit={this.onSubmit} />
       </div>
     );
   }
@@ -58,27 +95,11 @@ class TicketsContainer extends Component {
 let mapStateToProps = (state) => {
   return {
     tickets: state.ticketsreducer.tickets,
-    ticketsByStops: state.ticketsreducer.ticketsByStops,
+    stops: state.ticketsreducer.stops,
+    currency: state.ticketsreducer.currency,
     openModal: state.formreducer.openModal,
     successModal: state.formreducer.successModal,
-    dataForm: state.formreducer.dataForm
   };
 }
 
-let mapDipatchToProps = (dispatch) => {
-  return {
-    updateStops: (stops) => {
-      dispatch(updateStopsAC(stops))
-    },
-    setCurrentCurrency: (currency) => {
-      dispatch(currentCurrency(currency))
-    },
-    showModal: (openModal) => {
-      dispatch(showModalAC(openModal))
-    },
-    showSuccess: () => {
-      dispatch(showSuccessAC())
-    }
-  };
-}
-export default connect(mapStateToProps, mapDipatchToProps)(TicketsContainer);
+export default connect(mapStateToProps, {updateStops, onAllStops, showOnlyOneStop, showModal, showSuccess, onSubmitForm})(TicketsContainer);

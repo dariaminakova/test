@@ -10,9 +10,10 @@ const TicketItem = (props) => {
                 <img src={aviacompany} alt='aviacompany'></img>
                 <p>{props.ticket.carrier}</p>
                 <button
-                    className='button'
-                    onClick={() => { props.onOpenModal(props.openModal) }}> Купить за
-                <Price price={props.ticket.price} /></button>
+                    className='buyButton'
+                    onClick={() => { props.onOpenModal() }}> Купить за
+                <Price price={props.ticket.price} 
+                currency={props.ticket.currency}/></button>
             </div>
             <div className='infoTicket'>
                 <div>

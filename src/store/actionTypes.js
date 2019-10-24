@@ -1,8 +1,7 @@
 export const TICKETS_FETCHED = 'TICKETS_FETCHED';
 export const STOPS_CHANGED = 'STOPS_CHANGED';
-export const CURRENCY_RUB = 'CURRENCY_RUB';
-export const CURRENCY_USD = 'CURRENCY_USD';
-export const CURRENCY_EUR = 'CURRENCY_EUR';
+export const ALL_CHANGED = 'ALL_CHANGED';
+export const SHOW_ONLY_ONE_STOP = 'SHOW_ONLY_ONE_STOP';
 export const SHOW_MODAL = 'SHOW_MODAL';
 export const SHOW_SUCCESS = 'SHOW_SUCCESS';
-export const SET_DATA_FORM = 'SET_DATA_FORM';
+export const SUBMIT_FORM = 'SUBMIT_FORM';

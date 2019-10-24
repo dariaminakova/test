@@ -10,7 +10,6 @@ select{
     border: 0.5px solid gray;
     border-radius: 10px;
     max-height: 340px;
-    min-width: 160px;
     background-color: white;
     font-size: 12px;
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
@@ -21,9 +20,7 @@ select{
 .filter-stops {
     display: flex;
     flex-direction: column;
-    padding: 1px;
 }
-
 
 .currency-btn{
     display: inline-block;
@@ -33,23 +30,54 @@ select{
     color: rgb(68,68,68);
     text-decoration: none;
     user-select: none;
-    padding: .2em 1.2em;
+    padding: 4px 8px;
+    margin: 0 2px;
     outline: none;
     border: 1px solid rgba(0,0,0,.1);
     border-radius: 2px;
     background: rgb(245,245,245) linear-gradient(#f4f4f4, #f1f1f1);
-    transition: all .218s ease 0s;
     cursor: pointer;
 }
 .currency-btn:hover {
-    color: rgb(24,24,24);
     border: 1px solid rgb(198,198,198);
     background: #f7f7f7 linear-gradient(#f7f7f7, #f1f1f1);
     box-shadow: 0 1px 2px rgba(0,0,0,.1);
 }
-.currency-btn:active {
-    color: rgb(51,51,51);
-    border: 1px solid rgb(204,204,204);
-    background: rgb(238,238,238) linear-gradient(rgb(238,238,238), rgb(224,224,224));
+.active-btn {
+    font-family: arial,sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    background: rgb(197, 228, 223);
+    border: 1px solid rgb(107, 158, 151);
     box-shadow: 0 1px 2px rgba(0,0,0,.1) inset;
+    padding: 4px 8px;
+    margin: 0 2px;
+    border-radius: 2px;
+    outline: none;
+}
+
+.labelBox{
+    display: flex;
+    align-items: center;
+}
+
+.labelBox label {
+    margin: 10px 0;
+}
+
+input:checked + span{
+    color:rgb(59, 156, 143);
+}
+
+.btnOnly{
+    border: none;
+    outline: none;
+    background: transparent;
+    color:transparent;
+    padding-top: 5px;
+}
+
+.btnOnly:hover{
+   text-decoration: underline;
+   color:rgb(59, 156, 143);
 }

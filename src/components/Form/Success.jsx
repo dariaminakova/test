@@ -5,7 +5,7 @@ const Success = (props) =>{
   return(
     <div className='success'>
       <p>ПОЗДРАВЛЯЕМ, ФОРМА ОТПРАВЛЕНА!</p>
-      <button onClick={() => { props.onShowSuccess() }}> close </button>
+      <button className='btn-cancel' onClick={() => { props.onShowSuccess() }}> close </button>
     </div>
   )
 }

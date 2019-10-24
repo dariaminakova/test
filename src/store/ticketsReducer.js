@@ -1,35 +1,33 @@
 import * as types from './actionTypes';
 import tickets from '../tickets.json';
+import { getFilterTicketsByStops, getStops } from './filters'
 
 const initTickets = tickets.tickets;
+const initStops = ['all', '0', '1', '2', '3'];
 
 const initialState = {
   tickets: initTickets,
-  stops: []
+  stops: initStops,
+  currency: 'rub'
 };
 
 const ticketsreducer = (state = initialState, action = {}) => {
   switch (action.type) {
+    case types.ALL_CHANGED:
+      let showAll = action.checked ? initStops: [];
+      let allTickets = showAll.length ? initTickets: [];
+      return { ...state, stops: showAll, tickets: allTickets};
+
     case types.STOPS_CHANGED:
       const { stops } = state;
-      let newStop;
-      const indexStop = stops.indexOf(action.stopsFilter);
-      if (indexStop === -1) {
-        newStop = [...stops, action.stopsFilter];
-      } else {
-        newStop = [...stops.slice(0, indexStop), ...stops.slice(indexStop+1)];
-      }
-      const newTickets = newStop.includes('all') ? action.tickets.tickets : (action.tickets.tickets.filter(ticket => newStop.includes(String(ticket.stops)))); 
+      const actionStops = action.stopsFilter;
+      let newStop = getStops(stops, actionStops);
+      const newTickets = newStop.includes('all') ? initTickets : getFilterTicketsByStops(initTickets, newStop);
       return { ...state, stops: newStop, tickets: newTickets };
 
-    case types.CURRENCY_RUB:
-      return { ...state, tickets: filterTicketsByCurrency(action.tickets.tickets, action.currency) };
-
-    case types.CURRENCY_USD:
-      return { ...state, tickets: filterTicketsByCurrency(action.tickets.tickets, action.currency) };
-
-    case types.CURRENCY_EUR:
-      return { ...state, tickets: filterTicketsByCurrency(action.tickets.tickets, action.currency) };
+    case types.SHOW_ONLY_ONE_STOP:
+      const stop = action.value;
+      return { ...state, stops: stop, tickets: getFilterTicketsByStops(initTickets, stop)};
 
     default:
       return state;
@@ -37,11 +35,3 @@ const ticketsreducer = (state = initialState, action = {}) => {
 }
 
 export default ticketsreducer;
-
-const filterTicketsByCurrency = (tickets, currency) => {
-  if (currency === 'eur'){
-  return tickets.map((ticket) => ({...ticket, price: Math.round(ticket.price / 14) + ' ' + currency}))}
-  else if (currency === 'usd'){
-  return tickets.map((ticket) => ({...ticket, price: Math.round(ticket.price / 15) + ' ' + currency}))}
-  return tickets.map((ticket) => ({...ticket, price: ticket.price + ' ' + currency}))
-}
