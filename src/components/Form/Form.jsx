@@ -19,7 +19,7 @@ class Form extends Component {
   }
   handleSubmit = (e) => {
     e.preventDefault();
-    if(this.state.checkValidate){
+    if(!this.state.checkValidate){
     this.setState({
       checkValidate: true
     })} else 
@@ -120,8 +120,7 @@ class Form extends Component {
           {showInputs}
           <button
             type='submit'
-            className='btn-submit'
-            disabled={!this.state.formValid}> Отправить </button>
+            className='btn-submit'> Отправить </button>
         </form>
       </div>
     );

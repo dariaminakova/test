@@ -26,7 +26,7 @@ const Input = (props) => {
 
   useEffect(() => {
     if(checkValidate){
-      validateField();
+      validateField(val);
     }
       }, [checkValidate]);
 
