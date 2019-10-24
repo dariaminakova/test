@@ -13,15 +13,21 @@ class Form extends Component {
       firstname: false,
       secondname: false,
       passportnumber: false,
+      checkValidate: false,
       formValid: false
     }
   }
   handleSubmit = (e) => {
     e.preventDefault();
-    let data = this.state;
+    if(this.state.checkValidate){
+    this.setState({
+      checkValidate: true
+    })} else 
+    {
+      let data = this.state;
     this.props.onSubmit(data)
     this.props.onOpenModal()
-    this.props.onShowSuccess()
+    this.props.onShowSuccess()}
   }
   setValidateField(name, value) {
     this.setState({
@@ -94,14 +100,14 @@ class Form extends Component {
     }
   ]
 
-  showInputs = this.inputsArr.map((input) => {
-    return <Input key={input.id} type={input.type} name={input.name} value='' msgLabel={input.msgLabel}
-      errorMsg={input.errorMsg} reqMsg={input.reqMsg} regEx={input.regEx} lengthValue={input.lengthValue}
-      setValidateField={this.setValidateField.bind(this)} />
-  })
-
   render() {
-    const { onOpenModal } = this.props
+    const { onOpenModal } = this.props;
+    const self = this;
+    const showInputs = this.inputsArr.map((input) => {
+      return <Input key={input.id} type={input.type} name={input.name} value='' msgLabel={input.msgLabel}
+        errorMsg={input.errorMsg} regEx={input.regEx} lengthValue={input.lengthValue} checkValidate={self.state.checkValidate}
+        setValidateField={this.setValidateField.bind(this)} />  })
+
     return (
       <div>
         <div className='titleForm'>
@@ -111,7 +117,7 @@ class Form extends Component {
             onClick={() => { onOpenModal() }}>отмена</button>
         </div>
         <form onSubmit={this.handleSubmit} className='form'>
-          {this.showInputs}
+          {showInputs}
           <button
             type='submit'
             className='btn-submit'

@@ -1,10 +1,10 @@
 import React from 'react';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import './Form.css'
 
 const Input = (props) => {
 
-  const { type, name, value, msgLabel, errorMsg, regEx, lengthValue } = props;
+  const { type, name, value, msgLabel, errorMsg, regEx, lengthValue, checkValidate } = props;
   const [val, setVal] = useState(value);
   const [fieldValidationErrors, setFieldValidationErrors] = useState('');
 
@@ -23,6 +23,12 @@ const Input = (props) => {
     setFieldValidationErrors(valid ? '' : errorMsg);
     props.setValidateField(name, value)
   }
+
+  useEffect(() => {
+    if(checkValidate){
+      validateField();
+    }
+      }, [checkValidate]);
 
   return <div className='formGroup'>
     <label htmlFor={name}>{msgLabel}</label>
